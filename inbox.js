@@ -78,7 +78,7 @@
   }
   function load() {
     api('GET', 'api/list').then(function (r) {
-      items = r.items || []; $('mailnote').hidden = !!r.mailReady; render();
+      items = r.items || []; render();
       var id = location.hash.slice(1), el = id && document.getElementById(id);
       if (el) { el.classList.add('hl'); el.scrollIntoView({ block: 'start' }); var it = items.find(function (x) { return x.id === id; }); if (it && it.status === 'new') setStatus(it, 'read'); history.replaceState(null, '', location.pathname); }
     });

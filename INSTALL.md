@@ -4,7 +4,7 @@ One small Node service (no dependencies) for every Space app:
 
 - `https://shovonix.dev/feedback/widget.js` — the form. Each app loads it and calls `SpaceFeedback.open({ app: 'Space Cam', version: '…' })`.
 - `https://shovonix.dev/feedback/` — the private inbox (one password). Filter by app, mark read or done, delete.
-- Every submission is emailed to `MAIL_TO`. Reply-To is the sender's email, so replying in Gmail answers them.
+- Optional: email each submission to `MAIL_TO` (set the `SMTP_…` lines). Off on shovonix.dev: feedback is read in the inbox only.
 
 Data: `DATA_DIR/<id>/meta.json` plus the attached files. Nothing is public: files are served only to a logged-in inbox.
 
