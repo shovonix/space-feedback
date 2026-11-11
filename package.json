@@ -1,0 +1,8 @@
+{
+  "name": "space-feedback",
+  "private": true,
+  "description": "One feedback inbox for every Space app: form widget, storage, email, private inbox.",
+  "main": "server.js",
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

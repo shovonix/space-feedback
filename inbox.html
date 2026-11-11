@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Feedback inbox</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<style>
+  :root{--bg:#0A0A0B;--card:#141416;--card2:#0f0f10;--fg:#f2f2f0;--dim:#9a9aa0;--faint:#6e6e74;--line:rgba(255,255,255,.1);--line2:rgba(255,255,255,.18);--red:#ff4d43}
+  @media (prefers-color-scheme:light){:root{--bg:#f4f4f3;--card:#fff;--card2:#f7f7f6;--fg:#111;--dim:#5e5e64;--faint:#8a8a90;--line:rgba(0,0,0,.09);--line2:rgba(0,0,0,.18)}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--fg);font:14.5px/1.5 "Public Sans",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:860px;margin:0 auto;padding:28px 16px 80px}
+  header{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:18px}
+  h1{font:800 24px "Archivo",system-ui,sans-serif;margin:0;letter-spacing:-.01em}
+  .count{color:var(--dim);font-size:13px;margin-top:2px}
+  .out{background:none;border:1px solid var(--line2);color:var(--dim);border-radius:9px;padding:7px 12px;font:600 12.5px "Public Sans",sans-serif;cursor:pointer}
+  .out:hover{color:var(--fg)}
+  .note{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 14px;color:var(--dim);font-size:13px;margin-bottom:14px}
+  .filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:16px}
+  .chip{border:1px solid var(--line2);background:none;color:var(--dim);border-radius:99px;padding:6px 12px;font:600 12.5px "Public Sans",sans-serif;cursor:pointer}
+  .chip.on{background:var(--fg);color:var(--bg);border-color:var(--fg)}
+  .chip .n{opacity:.6;margin-left:4px}
+  .list{display:flex;flex-direction:column;gap:10px}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px 18px;scroll-margin-top:16px}
+  .item.new{border-color:var(--line2)}
+  .item.done{opacity:.55}
+  .item.hl{outline:2px solid var(--fg);outline-offset:2px}
+  .top{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+  .app{font:700 12px "Archivo",sans-serif;letter-spacing:.02em;padding:3px 9px;border-radius:6px;background:var(--fg);color:var(--bg)}
+  .kind{font:600 12px "Public Sans",sans-serif;padding:3px 9px;border-radius:6px;border:1px solid var(--line2)}
+  .kind.bug{color:var(--red);border-color:color-mix(in srgb,var(--red) 50%,transparent)}
+  .dot{width:7px;height:7px;border-radius:50%;background:var(--red)}
+  .when{color:var(--faint);font:500 11.5px "JetBrains Mono",monospace;margin-left:auto}
+  .msg{margin:10px 0 0;white-space:pre-wrap;word-wrap:break-word;font-size:15px}
+  .msg.empty{color:var(--faint);font-style:italic}
+  .files{display:flex;flex-wrap:wrap;gap:12px;margin-top:12px;align-items:flex-start}
+  .f{display:flex;flex-direction:column;align-items:flex-start;gap:6px;max-width:100%}
+  .files img,.files video{max-width:100%;max-height:320px;border-radius:10px;border:1px solid var(--line);background:#000;display:block}
+  .files img{cursor:zoom-in}
+  .fileln{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line2);border-radius:9px;padding:6px 10px;color:var(--fg);text-decoration:none;font-size:12.5px}
+  .missing{color:var(--faint);font-size:12.5px}
+  .who{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:12px;font-size:12.5px;color:var(--dim)}
+  .who a{color:var(--fg)}
+  .acts{display:flex;gap:6px;margin-top:12px}
+  .act{background:none;border:1px solid var(--line2);color:var(--dim);border-radius:8px;padding:5px 10px;font:600 12px "Public Sans",sans-serif;cursor:pointer;text-decoration:none}
+  .act:hover{color:var(--fg)}
+  .act.del:hover{color:var(--red);border-color:var(--red)}
+  .empty-all{color:var(--dim);text-align:center;padding:60px 0}
+  .zoom{position:fixed;inset:0;background:rgba(0,0,0,.88);display:flex;align-items:center;justify-content:center;padding:20px;cursor:zoom-out;z-index:10}
+  .zoom img{max-width:100%;max-height:100%;border-radius:8px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div><h1>Feedback</h1><div class="count" id="count">Loading…</div></div>
+    <form method="post" action="logout"><button class="out" type="submit">Log out</button></form>
+  </header>
+  <div class="note" id="mailnote" hidden>Email isn't set up yet, so new feedback only shows here. See INSTALL.md (SMTP_…).</div>
+  <div class="filters" id="filters"></div>
+  <div class="list" id="list"></div>
+</div>
+<script src="inbox.js"></script>
+</body>
+</html>
